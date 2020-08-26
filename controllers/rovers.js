@@ -1,5 +1,6 @@
 const Rover = require('../models/rover')
 const { notFound } = require('../lib/errorMessages')
+const { findByIdAndUpdate } = require('../models/rover')
 // const { notFound, unauthorized } = require('../lib/errorMessages')
 
 // * Create the controllers for your resouce here (index, create), (show, update delete optional)
@@ -52,15 +53,25 @@ async function roversMovement(req, res, next) {
     if (!rover) throw new Error(notFound)
     Object.assign(rover, req.body) // * merge the objects together to make the update
     await rover.save() // * then resave
-    // * if they are not that creator, send them back an unauthorised response
+    // * if not then send them back an unauthorised response
     res.status(202).json(rover)
   } catch (err) {
     next(err)
   }
+  if (movementsArray.toUpperCase().includes('L' || 'R' || 'M')) {
+    const rover = await Rover.findById(roverId)
+    const roverInMovement = { x: rover.x, y: rover.y, position: rover.position }
+    let i
+    for (i = 0; i < movementsArray.length; i++) {
+      
+    }
+    findByIdAndUpdate()
+    const movementOptions = { N: { L: 'E', R: 'W', M: 'y+1' }, E: { L: 'S', R: 'N', M: 'x-1' }, S: { L: 'W', R: 'E', M: 'y-1' }, W: { L: 'S', R: 'N', M: 'x+1' } }
+  }
   //* do these movements !include 'L, M, R,' -> ERROR 
   //* IF YES THEN CONTINUE TO LOOP
   //* for loop iterating over array.length to get movement
-  //* need immutable copy of rover that is found by id -> let roverInMovement = {x: rover.x, y: rover.y, positiong: rover.position}
+  //* need immutable copy of rover that is found by id -> let roverInMovement = {x: rover.x, y: rover.y, position: rover.position}
   //* at the end of the loop findByIdAndUpdate -> this will change the position of the rover
   //* to imitate movement need to return array of positions -> each time I iterate of movement array -> pushed into position array. The rover needs to display:none from previous position and only appear in the new position
   //* const movementOptions = {N: {L: 'E', R: 'W', M:'y+1'}, E:{L: 'S', R: 'N', M:'x-1'}, S:{L:'W', R:'E', M:'y-1'}, W:{L:'S', R:'N',  x+1}}
