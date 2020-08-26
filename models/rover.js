@@ -2,7 +2,9 @@ const mongoose = require('mongoose')
 
 //* individual document
 const roverSchema = new mongoose.Schema({
-  name: { type: String, required: true, unique: true }
+  x: { type: Number, required: true },
+  y: { type: Number, required: true },
+  position: { type: String, required: true, enum: ['N', 'E', 'S', 'W'] } 
 }, {
   timestamps: true
 })

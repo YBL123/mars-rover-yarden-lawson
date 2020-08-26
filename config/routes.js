@@ -11,8 +11,10 @@ router.route('/rovers') //* any route that comes in with that, if its a GET hand
 
 router.route('/rovers/:id')
   .get(rovers.show)
-  .put(rovers.update)
   .delete(rovers.delete)
+
+router.route('/rovers/movement')
+  .post(rovers.movement)
 
 
 module.exports = router //* export entire router
