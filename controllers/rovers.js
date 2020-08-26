@@ -63,6 +63,7 @@ async function roversMovement(req, res, next) {
   //* need immutable copy of rover that is found by id -> let roverInMovement = {x: rover.x, y: rover.y, positiong: rover.position}
   //* at the end of the loop findByIdAndUpdate -> this will change the position of the rover
   //* to imitate movement need to return array of positions -> each time I iterate of movement array -> pushed into position array. The rover needs to display:none from previous position and only appear in the new position
+  //* const movementOptions = {N: {L: 'E', R: 'W', M:'y+1'}, E:{L: 'S', R: 'N', M:'x-1'}, S:{L:'W', R:'E', M:'y-1'}, W:{L:'S', R:'N',  x+1}}
 }
 
 async function roversDelete(req, res, next) {
