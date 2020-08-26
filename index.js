@@ -1,7 +1,7 @@
 const express = require('express')
 const dotenv = require('dotenv')
 const bodyParser = require('body-parser')
-// const router = require('./config/routes')
+const router = require('./config/routes')
 // const errorHandler = require('./lib/errorHandler')
 const connectDB = require('./db/connect')
 
@@ -13,7 +13,7 @@ const app = express()
 
 app.use(bodyParser.json())
 
-// app.use('/api', router)
+app.use('/api', router)
 
 // app.use(errorHandler)
 

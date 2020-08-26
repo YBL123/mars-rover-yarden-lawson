@@ -123,5 +123,5 @@ module.exports = {
   create: roversCreate,
   show: roversShow,
   update: roversUpdate,
-  delete: roversDelete,
+  delete: roversDelete
 }
