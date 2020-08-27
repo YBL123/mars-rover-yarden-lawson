@@ -19,7 +19,4 @@ router.route('/rovers/movement')
 module.exports = router //* export entire router
 
 
-
-//* secureRoute - adding "security guards where needed"
-
 // * Export your router! you will need to register this as middleware in "index.js" !
