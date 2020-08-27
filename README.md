@@ -158,6 +158,13 @@ module.exports = mongoose.model('RoverMovement', roverMovementSchema)
 
 ## moveRover function in controllers 
 * ENTER FUNCTION HERE AND DISCUSS
+//* do these movements !include 'L, M, R,' -> ERROR 
+//* IF YES THEN CONTINUE TO LOOP
+//* for loop iterating over array.length to get movement
+//* need immutable copy of rover that is found by id -> let roverInMovement = {x: rover.x, y: rover.y, position: rover.position}
+//* at the end of the loop findByIdAndUpdate -> this will change the position of the rover
+//* const movementOptions = {N: {L: 'E', R: 'W', M:'y+1'}, E:{L: 'S', R: 'N', M:'x-1'}, S:{L:'W', R:'E', M:'y-1'}, W:{L:'S', R:'N',  'x+1'}}
+//* to imitate movement need to return array of positions -> each time I iterate over movement array -> pushed into position array. The rover needs to display:none from previous position and only appear in the new position
 
 ## routes.js (in config directory)
 * // * manage incoming requests here 
