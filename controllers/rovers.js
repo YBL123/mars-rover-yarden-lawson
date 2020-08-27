@@ -8,7 +8,7 @@ const asyncHandler = require('../middleware/async')
 const roversIndex = (async(req, res, next) => {
   const rovers = await Rover.find()
   if (!rovers) throw new Error(notFound)
-  //! return next(new ErrorResponse('not found', 404))
+  // return next(new ErrorResponse('not found', 404))
   res.status(200).json(rovers)
   
   // next(err)
@@ -20,10 +20,12 @@ const roversCreate = asyncHandler(async(req, res, next) =>  {
     return next(new ErrorResponse('missing parameter x', 400))
   }
   if (!req.body.y || req.body.y === undefined) {
-    res.status(400).json({ status: 'failed', error: 'missing position y' })
+    //! res.status(400).json({ status: 'failed', error: 'missing position y' })
+    return next(new ErrorResponse('missing parameter y', 400))
   }
   if (!req.body.position || req.body.position === undefined) {
-    res.status(400).json({ status: 'failed', error: 'missing rover facing position' })
+    //! res.status(400).json({ status: 'failed', error: 'missing rover facing position' })
+    return next(new ErrorResponse('missing rover facing position', 400))
   } 
 
   const newRover = {
@@ -34,9 +36,14 @@ const roversCreate = asyncHandler(async(req, res, next) =>  {
   }
 
   const createdRover = await Rover.create(newRover) 
-  //! INVALID IF COORDINATES ARE OUTSIDE OF THE 5*5 GRID //! first thing tomorrow
-  //! if x > 5 || x < 0 throw error 'outside of grid parameters statuscode 400
-  //! if y > 5 || y < 0 throw error 'outside of grid parameters statuscode 400
+  
+  //* INVALID IF COORDINATES ARE OUTSIDE OF THE 5*5 GRID 
+  if (req.body.x > 5 || req.body.x < 0) {
+    return next(new ErrorResponse('Outside of grid parameters', 400))
+  }
+  if (req.body.y > 5 || req.body.y < 0) {
+    return next(new ErrorResponse('Outside of grid parameters', 400))
+  }
 
   res.status(201).json(createdRover)
   
@@ -44,16 +51,12 @@ const roversCreate = asyncHandler(async(req, res, next) =>  {
 
 const roversShow = (async(req, res, next) => {
   //* this id is the object id
-  //* whatever goes into /id: is referred to as the req.params.id
+  //* whatever goes into /:id is referred to as the req.params.id
   const roverId = req.params.id
-  //* if there's a valid mongo id but it's not a 'currently valid' one it will still error now. Forces it to go down to catch block. Throwing an error works in the same way as return so it shortcuts the circut. "THROWING TO CATCH"
-  // try {
+  //* if there's a valid mongo id but it's not a 'currently valid' one it will still error now
   const rover = await Rover.findById(roverId)
   if (!rover) throw new Error(notFound)
   res.status(200).json(rover)
-  // } catch (err) {
-  // next(err)
-  // }
 })
 
 async function roversMovement(req, res, next) {
