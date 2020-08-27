@@ -1,5 +1,58 @@
 ## Hi
 
+## backend / server:
+
+# started off with back end:
+
+# created mongo database in the cloud using mongod Atlas:
+* using mongodb Atlas -> AWS -> ireland
+* Created a config directory in app root
+* created a config.env file inside the config director
+* npm i dotenv
+* npm i express
+* npm i mongoose
+* npm i nodemon 
+* npm i body-parser
+*   “scripts”: {
+    “test”: “echo /\”/Error: no test specified/\”/ && exit 1”,
+    “start”: “nodemon”
+  }
+* added “start”: “nodemon” -> so nodemon will always relaunch the backend (server) whenever it exits/collapses
+* connect.js file in db directory:
+* const mongoose = require(‘mongoose’)
+
+const connectDB = /async/ () => {
+  /try/ {
+    /await/ mongoose.connect(
+      process.env.DB_CONNECT,
+      { useNewUrlParser: /true/, useUnifiedTopology: /true/, useCreateIndex: /true/  },)
+    console.log(‘Mongo is Connected!’)
+  } /catch/ (err) {
+    console.log(err)
+  }  
+}
+
+module.exports = connectDB
+
+# created directories: 
+* config -> config.env & routes.js
+* controllers -> rovers.js
+* db -> connect.js
+* lib -> errorHandler.js & errorMessages.js
+* middleware -> async.js & errorResponse.js
+* models -> rover.js & rovermovement.js
+* index.js
+* frontend -> create reactapp
+
+
+
+
+
+
+
+
+
+
 
 <!-- This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
