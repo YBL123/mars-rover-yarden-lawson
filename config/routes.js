@@ -3,7 +3,6 @@
 const router = require('express').Router()
 const rovers = require('../controllers/rovers')
 
-
 router.route('/rovers') //* any route that comes in with that, if its a GET hand it off to index etc. Handing off to the correct one by verb.
   .get(rovers.index)
   .post(rovers.create)

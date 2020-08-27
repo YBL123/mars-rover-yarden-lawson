@@ -1,8 +1,7 @@
+const ErrorResponse = require('../middleware/errorResponse')
 const Rover = require('../models/rover')
-const { notFound } = require('../lib/errorMessages')
+const { notFound } = require('../lib/errorMessages') //! may comment out also get rid of errorMessages.js
 const asyncHandler = require('../middleware/async')
-// const { findByIdAndUpdate } = require('../models/rover')
-// const { notFound, unauthorized } = require('../lib/errorMessages')
 
 // * Create the controllers for your resouce here (index, create), (show, update delete optional)
 
@@ -10,6 +9,7 @@ async function roversIndex(req, res, next) {
   try {
     const rovers = await Rover.find()
     if (!rovers) throw new Error(notFound)
+    //! return next(new ErrorResponse('not found', 404))
     res.status(200).json(rovers)
   } catch (err) {
     next(err)
@@ -19,7 +19,7 @@ async function roversIndex(req, res, next) {
 const roversCreate = asyncHandler(async(req, res, next) =>  {
   //* checking to see if req.body contains positions x & y & position or if it is undefined
   if (!req.body.x || req.body.x === undefined) {
-    res.status(400).json({ status: 'failed', error: 'missing position x' })
+    return next(new ErrorResponse('missing parameter x', 400))
   }
   if (!req.body.y || req.body.y === undefined) {
     res.status(400).json({ status: 'failed', error: 'missing position y' })
@@ -35,11 +35,11 @@ const roversCreate = asyncHandler(async(req, res, next) =>  {
     position: req.body.position.toUpperCase() 
   }
 
-  const createdRover = await Rover.create(newRover) //* Using the modified rover object
-  //* NEED TO CAPITALIZE 'N''E''S''W'
-  //* NEED TO CHECK BODY CONTAINS X, Y, POSITION
-  //* OBJECT.KEYS
-  //* INVALID IF COORDINATES ARE OUTSIDE OF THE 5*5 GRID
+  const createdRover = await Rover.create(newRover) 
+  //! INVALID IF COORDINATES ARE OUTSIDE OF THE 5*5 GRID //! first thing tomorrow
+  //! if x > 5 || x < 0 throw error 'outside of grid parameters statuscode 400
+  //! if y > 5 || y < 0 throw error 'outside of grid parameters statuscode 400
+
   res.status(201).json(createdRover)
   
 })
