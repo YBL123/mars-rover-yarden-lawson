@@ -5,16 +5,14 @@ const asyncHandler = require('../middleware/async')
 
 // * Create the controllers for your resouce here (index, create), (show, update delete optional)
 
-async function roversIndex(req, res, next) {
-  try {
-    const rovers = await Rover.find()
-    if (!rovers) throw new Error(notFound)
-    //! return next(new ErrorResponse('not found', 404))
-    res.status(200).json(rovers)
-  } catch (err) {
-    next(err)
-  }
-}
+const roversIndex = (async(req, res, next) => {
+  const rovers = await Rover.find()
+  if (!rovers) throw new Error(notFound)
+  //! return next(new ErrorResponse('not found', 404))
+  res.status(200).json(rovers)
+  
+  // next(err)
+})
 
 const roversCreate = asyncHandler(async(req, res, next) =>  {
   //* checking to see if req.body contains positions x & y & position or if it is undefined
@@ -44,19 +42,19 @@ const roversCreate = asyncHandler(async(req, res, next) =>  {
   
 })
 
-async function roversShow(req, res, next) {
+const roversShow = (async(req, res, next) => {
   //* this id is the object id
   //* whatever goes into /id: is referred to as the req.params.id
   const roverId = req.params.id
   //* if there's a valid mongo id but it's not a 'currently valid' one it will still error now. Forces it to go down to catch block. Throwing an error works in the same way as return so it shortcuts the circut. "THROWING TO CATCH"
-  try {
-    const rover = await Rover.findById(roverId)
-    if (!rover) throw new Error(notFound)
-    res.status(200).json(rover)
-  } catch (err) {
-    next(err)
-  }
-}
+  // try {
+  const rover = await Rover.findById(roverId)
+  if (!rover) throw new Error(notFound)
+  res.status(200).json(rover)
+  // } catch (err) {
+  // next(err)
+  // }
+})
 
 async function roversMovement(req, res, next) {
   // if (!req.body.id || !req.body.movement) throw new Error(notFound)
@@ -92,17 +90,13 @@ async function roversMovement(req, res, next) {
 //* to imitate movement need to return array of positions -> each time I iterate of movement array -> pushed into position array. The rover needs to display:none from previous position and only appear in the new position
 //* const movementOptions = {N: {L: 'E', R: 'W', M:'y+1'}, E:{L: 'S', R: 'N', M:'x-1'}, S:{L:'W', R:'E', M:'y-1'}, W:{L:'S', R:'N',  'x+1'}}
 
-async function roversDelete(req, res, next) {
+const roversDelete = (async(req, res, next) => {
   const roverId = req.params.id
-  try {
-    const roverToDelete = await Rover.findById(roverId)
-    if (!roverToDelete) throw new Error(notFound)
-    await roverToDelete.remove()
-    res.sendStatus(204)
-  } catch (err) {
-    next(err)
-  }
-}
+  const roverToDelete = await Rover.findById(roverId)
+  if (!roverToDelete) throw new Error(notFound)
+  await roverToDelete.remove()
+  res.sendStatus(204)
+})
 
 // * export your controllers for use in the router
 
