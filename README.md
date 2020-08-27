@@ -1,10 +1,8 @@
-## Hi
+# backend / server:
 
-## backend / server:
+### started off with back end:
 
-# started off with back end:
-
-# created mongo database in the cloud using mongod Atlas:
+### created mongo database in the cloud using mongod Atlas:
 * using mongodb Atlas -> AWS -> ireland
 * Created a config directory in app root
 * created a config.env file inside the config director
@@ -34,7 +32,7 @@ const connectDB = /async/ () => {
 
 module.exports = connectDB
 
-# created directories: 
+## created directories: 
 * config -> config.env & routes.js
 * controllers -> rovers.js
 * db -> connect.js
