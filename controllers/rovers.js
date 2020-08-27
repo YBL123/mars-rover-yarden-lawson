@@ -8,7 +8,7 @@ const asyncHandler = require('../middleware/async')
 const roversIndex = (async(req, res, next) => {
   const rovers = await Rover.find()
   if (!rovers) throw new Error(notFound)
-  // return next(new ErrorResponse('not found', 404))
+  //! return next(new ErrorResponse('not found', 404))
   res.status(200).json(rovers)
   
   // next(err)
@@ -36,7 +36,7 @@ const roversCreate = asyncHandler(async(req, res, next) =>  {
   }
 
   const createdRover = await Rover.create(newRover) 
-  
+
   //* INVALID IF COORDINATES ARE OUTSIDE OF THE 5*5 GRID 
   if (req.body.x > 5 || req.body.x < 0) {
     return next(new ErrorResponse('Outside of grid parameters', 400))
@@ -59,32 +59,32 @@ const roversShow = (async(req, res, next) => {
   res.status(200).json(rover)
 })
 
-async function roversMovement(req, res, next) {
-  // if (!req.body.id || !req.body.movement) throw new Error(notFound)
+const roversMovement = (async(req, res, next) => {
+  if (!req.body.id || !req.body.movement) throw new Error(notFound)
 
-  // const roverId = req.body.id 
-  // const movementsArray = req.body.movement.toUpperCase().split('') //* turns the movement string to uppercase then splits the movement string to an array
+  const roverId = req.body.id 
+  const movementsArray = req.body.movement.toUpperCase().split('') //* turns the movement string to uppercase then splits the movement string to an array
   // try {
-  //   // * find the rover to be moved
-  //   const rover = await Rover.findById(roverId)
-  //   if (!rover) throw new Error(notFound)
-  //   Object.assign(rover, req.body) // * merge the objects together to make the update
-  //   await rover.save() // * then resave
-  //   // * if not then send them back an unauthorised response
-  //   res.status(202).json(rover)
+  // * find the rover to be moved
+  const rover = await Rover.findById(roverId)
+  if (!rover) throw new Error(notFound)
+  Object.assign(rover, req.body) // * merge the objects together to make the update
+  await rover.save() // * then resave
+  // * if not then send them back an unauthorised response
+  res.status(202).json(rover)
   // } catch (err) {
   //   next(err)
   // }
-  // if (movementsArray.includes('L' || 'R' || 'M')) {
-  //   const roverInMovement = { x: rover.x, y: rover.y, position: rover.position }
-  //   const movementOptions = { N: { L: 'E', R: 'W', M: 'y+1' }, E: { L: 'S', R: 'N', M: 'x-1' }, S: { L: 'W', R: 'E', M: 'y-1' }, W: { L: 'S', R: 'N', M: 'x+1' } }
-  //   let i
-  //   for (i = 0; i < movementsArray.length; i++) {
+  if (movementsArray.includes('L' || 'R' || 'M')) {
+    const roverInMovement = { x: rover.x, y: rover.y, position: rover.position }
+    const movementOptions = { N: { L: 'E', R: 'W', M: 'y+1' }, E: { L: 'S', R: 'N', M: 'x-1' }, S: { L: 'W', R: 'E', M: 'y-1' }, W: { L: 'S', R: 'N', M: 'x+1' } }
+    let i
+    for (i = 0; i < movementsArray.length; i++) {
       
-  //   }
-  //   findByIdAndUpdate()
-  // }
-}
+    }
+    findByIdAndUpdate()
+  }
+})
 //* do these movements !include 'L, M, R,' -> ERROR 
 //* IF YES THEN CONTINUE TO LOOP
 //* for loop iterating over array.length to get movement
