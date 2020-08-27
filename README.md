@@ -1,5 +1,7 @@
 # backend / server:
 
+# insert image of all insomnia requests once completed for visual representaion 
+
 ### started off with back end:
 
 ### created mongo database in the cloud using mongod Atlas:
