@@ -47,7 +47,7 @@ npm i
 npm run start
 ```
 
-# backend / server:
+# Backend:
 
 # insert image of all insomnia requests once completed for visual representaion 
 
