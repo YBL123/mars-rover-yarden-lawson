@@ -21,6 +21,25 @@ Assume that the square directly North from (x, y) is (x, y+1).
 ## Deployment
 The app is deployed on ...
 
+## Built With
+* React
+* Node.js
+* Express
+* MongoDB
+* Sass
+* Axios
+* Git
+* Github
+
+## Getting Started
+To download the source code click the clone button. Run the following commands in the terminal:
+
+To install all packages listed in the package.json:
+npm i
+To run the app in your localhost:
+In both front and back:
+npm run start
+
 # backend / server:
 
 # insert image of all insomnia requests once completed for visual representaion 
