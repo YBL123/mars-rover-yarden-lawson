@@ -76,6 +76,26 @@ DB_CONNECT = mongodb+srv://ybl-rover:Password123@cluster0.blzrd.mongodb.net/rove
 PORT = 8000
 ```
 
+## routes.js (in config directory)
+* // * manage incoming requests here 
+
+const router = require('express').Router()
+const rovers = require('../controllers/rovers')
+
+router.route('/rovers') //* any route that comes in with that, if its a GET hand it off to index etc. Handing off to the correct one by verb.
+  .get(rovers.index)
+  .post(rovers.create)
+  // .post(secureRoute, rovers.create)
+
+router.route('/rovers/:id')
+  .get(rovers.show)
+  .delete(rovers.delete)
+
+router.route('/rovers/movement')
+  .post(rovers.movement)
+
+
+module.exports = router //* export entire router
 
 ## async.js
 * const asyncHandler = (fn) => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
@@ -146,17 +166,16 @@ module.exports = mongoose.model('RoverMovement', roverMovementSchema)
 
 
 ## createRover function in controllers 
-* const roversCreate = asyncHandler(async(req, res, next) =>  {
+```javascript
+const roversCreate = asyncHandler(async(req, res, next) =>  {
   //* checking to see if req.body contains positions x & y & position or if it is undefined
   if (!req.body.x || req.body.x === undefined) {
-    return next(new ErrorResponse('missing parameter x', 400))
+    return next(new ErrorResponse('missing position x', 400))
   }
   if (!req.body.y || req.body.y === undefined) {
-    //! res.status(400).json({ status: 'failed', error: 'missing position y' })
-    return next(new ErrorResponse('missing parameter y', 400))
+    return next(new ErrorResponse('missing position y', 400))
   }
   if (!req.body.position || req.body.position === undefined) {
-    //! res.status(400).json({ status: 'failed', error: 'missing rover facing position' })
     return next(new ErrorResponse('missing rover facing position', 400))
   } 
 
@@ -180,37 +199,72 @@ module.exports = mongoose.model('RoverMovement', roverMovementSchema)
   res.status(201).json(createdRover)
   
 })
-
+```
 
 ## moveRover function in controllers 
-* ENTER FUNCTION HERE AND DISCUSS
-//* do these movements !include 'L, M, R,' -> ERROR 
-//* IF YES THEN CONTINUE TO LOOP
-//* for loop iterating over array.length to get movement
-//* need immutable copy of rover that is found by id -> let roverInMovement = {x: rover.x, y: rover.y, position: rover.position}
-//* at the end of the loop findByIdAndUpdate -> this will change the position of the rover
-//* const movementOptions = {N: {L: 'E', R: 'W', M:'y+1'}, E:{L: 'S', R: 'N', M:'x-1'}, S:{L:'W', R:'E', M:'y-1'}, W:{L:'S', R:'N',  'x+1'}}
-//* to imitate movement need to return array of positions -> each time I iterate over movement array -> pushed into position array. The rover needs to display:none from previous position and only appear in the new position
+```javascript
+const roversMovement = asyncHandler(async(req, res, next) => {
+  if (!req.body.id || !req.body.movement) {
+    return next(new ErrorResponse('missing movement assignement or Rover ID', 400))
+  }
+  const roverId = req.body.id 
+  
+  // * find the rover to be moved
+  const rover = await Rover.findById(roverId)
+  if (!rover){
+    return next(new ErrorResponse(notFound, 404))
+  }
 
-## routes.js (in config directory)
-* // * manage incoming requests here 
+  //* turns the movement string to uppercase then splits the movement string that is inputed into an array
+  const moveRoverCommandsArray = req.body.movement.toUpperCase().split('') 
 
-const router = require('express').Router()
-const rovers = require('../controllers/rovers')
+  const movementsArray = []
 
-router.route('/rovers') //* any route that comes in with that, if its a GET hand it off to index etc. Handing off to the correct one by verb.
-  .get(rovers.index)
-  .post(rovers.create)
-  // .post(secureRoute, rovers.create)
+  //* this will be a copy of the rover model at this stage. This will be updated with every movement assigned to the rover.
+  const roverInMotion = { 
+    x: rover.x, 
+    y: rover.y, 
+    position: rover.position 
+  }
 
-router.route('/rovers/:id')
-  .get(rovers.show)
-  .delete(rovers.delete)
+  //* object which contains movement possibilities
+  //* adding the function to M: to receive current position and manipulate it according to the movement input
+  const movementOptions = {
+    N: { L: 'W', R: 'E', 
+      M: function(rover){
+        return rover.y++
+      } },
+    E: { L: 'N', R: 'S',
+      M: function(rover){
+        return rover.x++
+      } },
+    S: { L: 'E', R: 'W', 
+      M: function(rover){
+        return rover.y--
+      }  },
+    W: { L: 'S', R: 'N',
+      M: function(rover){
+        return rover.x--
+      } } 
+  }
 
-router.route('/rovers/movement')
-  .post(rovers.movement)
-
-
-module.exports = router //* export entire router
+  //* Mapping through the movement commands within the array. 
+  moveRoverCommandsArray.map((movement) => {
+    if (movement === 'L' || movement === 'R') { 
+      //* 'L' & 'R' are only 90 degree angle roataions
+      //* Updating rover's current position through the movementOptions 
+      roverInMotion.position = movementOptions[`${roverInMotion.position}`][`${movement}`]
+    } else if (movement === 'M') {
+      //* The rover will be updated with every movement assigned to the rover
+      movementOptions[`${roverInMotion.position}`].M(roverInMotion)
+    }
+    //* pushing the new movement assignment into movementsArray
+    movementsArray.push({ x: roverInMotion.x, y: roverInMotion.y, position: roverInMotion.position })
+  })
+  //* newPosition: roverInmotion = returning the end position once the movements have been completed
+  //* movementsArray: movementsArray = returning an array of all of the movement positions 
+  res.status(200).json({ newPosition: roverInMotion, movementsArray: movementsArray }) 
+})
+```
 
 
