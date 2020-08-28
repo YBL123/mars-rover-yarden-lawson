@@ -133,7 +133,7 @@ An example of an unhandled promise rejections: (node:44800) [DEP0018] Deprecatio
 The unhandled promise rejections cause the server to "hang". Using process.exit allows us to put an end to it/kill the server.
 
 
-## rover.js (models diirectory)
+## rover.js (models directory)
 * const mongoose = require('mongoose')
 
 //* individual document
