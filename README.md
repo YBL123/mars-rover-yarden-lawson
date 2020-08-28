@@ -76,38 +76,20 @@ DB_CONNECT = mongodb+srv://<username>:<password>@cluster0.blzrd.mongodb.net/rove
 PORT = 8000
 ```
 
-## routes.js (in config directory)
-Manage incoming requests here 
-
-```javascirpt
-const router = require('express').Router()
-const rovers = require('../controllers/rovers')
-
-router.route('/rovers') //* any route that comes in with that, if its a GET hand it off to index etc. Handing off to the correct one by verb.
-  .get(rovers.index)
-  .post(rovers.create)
-  // .post(secureRoute, rovers.create)
-
-router.route('/rovers/:id')
-  .get(rovers.show)
-  .delete(rovers.delete)
-
-router.route('/rovers/movement')
-  .post(rovers.movement)
-
-
-module.exports = router //* export entire router
-````
-
 ## async.js
+```javascript
 * const asyncHandler = (fn) => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 
 module.exports = asyncHandler
+````
 
-//* middleware that will wrap around a function. The function is expected to receive a req, res and next parameters
-//* The middleware is essentially a try catch -> with the promise.resolve()
-//* If there is any error within the Promise.resolve() it will catch the error with Catch(next) and move it next
-//* next meaning passing it on to the errorHandler which will catch and handle the error
+This is middleware that will wrap around a function. The function is expected to receive a req, res and next parameters.
+
+The middleware is essentially a try catch (promise.resolve()).
+
+If there is any error within the Promise.resolve() it will catch the error with Catch(next) and move it next.
+
+Next() meaning passing it on to the errorHandler which will catch and handle the error.
 
 ## errorResponse.js
 * class ErrorResponse extends Error {
