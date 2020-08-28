@@ -34,11 +34,18 @@ The app is deployed on ...
 ## Getting Started
 To download the source code click the clone button. Run the following commands in the terminal:
 
-To install all packages listed in the package.json:
+To download the source code click the clone button. Run the following commands in the terminal:
+
+* To install all packages listed in the package.json:
+```terminal
 npm i
-To run the app in your localhost:
-In both front and back:
+```
+
+* To run the app in your localhost:
+* In both front and back:
+```terminal
 npm run start
+```
 
 # backend / server:
 
