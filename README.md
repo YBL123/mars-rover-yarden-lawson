@@ -49,6 +49,8 @@ npm run start
 
 # Backend:
 
+I began by building the backend first. I set up the routes, controllers, middleware, errorhandlers, models, database and tested the requests using Insomnia.
+
 ### All backend requests:
 ![Insomnia all backend requests](mars-rovers-insomnia.png)
 
@@ -92,7 +94,8 @@ If there is any error within the Promise.resolve() it will catch the error with 
 Next() meaning passing it on to the errorHandler which will catch and handle the error.
 
 ## errorResponse.js
-* class ErrorResponse extends Error {
+```javascript
+class ErrorResponse extends Error {
   constructor(message, statusCode){
     super(message)
     this.statusCode = statusCode
@@ -100,9 +103,9 @@ Next() meaning passing it on to the errorHandler which will catch and handle the
 }
 
 module.exports = ErrorResponse
+````
 
-//* builds error messages and status codes
-//* built an object which extends Error that passes 2 arguments -> message and statusCode
+This class builds error messages and status codes. This is done by building an object which extends the Error class and passes two arguments; message and statusCode.
 
 ## index.js
 * connectDB() //* calling connection here. Comes after dotenv as I am calling process.env within the connectDB function --->>> //* calling connection here. Comes after dotenv as I am calling process.env within the connectDB function
