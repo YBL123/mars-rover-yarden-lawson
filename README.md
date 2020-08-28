@@ -64,8 +64,9 @@ npm run start
 
 ## config.env
 
-### Created MongoDB Atlas Database -> stores Database in the Cloud:
+### Created MongoDB Atlas Database 
 ![Atlas mongodb](cloud-mongodb-atlas.png)
+Stores database in the cloud.
 
 Used URL given by Atlas and set it to variable, also storing the port here.
 
