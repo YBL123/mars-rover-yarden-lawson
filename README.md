@@ -165,7 +165,7 @@ The roverMovementSchema includes only a movement key which will accept the strin
 'R' & 'L' = 90 degree rotation in the same spot. 'M' = movement.
 
 
-## createRover function in controllers 
+## createRover function in controllers directory
 ```javascript
 const roversCreate = asyncHandler(async(req, res, next) =>  {
   //* checking to see if req.body contains positions x & y & position or if it is undefined
@@ -201,7 +201,7 @@ const roversCreate = asyncHandler(async(req, res, next) =>  {
 })
 ```
 
-## moveRover function in controllers 
+## moveRover function in controllers directory
 ```javascript
 const roversMovement = asyncHandler(async(req, res, next) => {
   if (!req.body.id || !req.body.movement) {
