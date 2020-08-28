@@ -268,3 +268,20 @@ const roversMovement = asyncHandler(async(req, res, next) => {
 ```
 
 
+## Wins
+
+blablabla
+
+## Challenges
+
+blablabla
+
+## Future Improvements
+
+* Make grid's size adjustable
+* Fine-tune styling
+* Add Error messages on forms to let user's know what the issue is
+
+## Key Learnings
+
+blablabla
