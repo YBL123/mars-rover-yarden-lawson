@@ -71,14 +71,15 @@ Stores database in the cloud.
 Used URL given by Atlas and set it to variable, also storing the port here.
 
 ```javascript 
-DB_CONNECT = mongodb+srv://ybl-rover:Password123@cluster0.blzrd.mongodb.net/roverdb?retryWrites=true&w=majority
+DB_CONNECT = mongodb+srv://<username>:<password>@cluster0.blzrd.mongodb.net/roverdb?retryWrites=true&w=majority
 
 PORT = 8000
 ```
 
 ## routes.js (in config directory)
-* // * manage incoming requests here 
+Manage incoming requests here 
 
+```javascirpt
 const router = require('express').Router()
 const rovers = require('../controllers/rovers')
 
@@ -96,6 +97,7 @@ router.route('/rovers/movement')
 
 
 module.exports = router //* export entire router
+````
 
 ## async.js
 * const asyncHandler = (fn) => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
