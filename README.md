@@ -52,10 +52,6 @@ npm run start
 ### All backend requests:
 ![Insomnia all backend requests](mars-rovers-insomnia.png)
 
-### Created MongoDB Atlas Database -> stores Database in the Cloud:
-![Atlas mongodb](cloud-mongodb-atlas.png)
-
-
 ## created directories: 
 * config -> config.env & routes.js
 * controllers -> rovers.js
@@ -66,7 +62,12 @@ npm run start
 * index.js
 * frontend -> create reactapp
 
-## config.env (---> mongo atlas cloud database, used url given by atlas db and set it to variable, also storing the port here)
+## config.env
+
+### Created MongoDB Atlas Database -> stores Database in the Cloud:
+![Atlas mongodb](cloud-mongodb-atlas.png)
+
+Used URL given by Atlas and set it to variable, also storing the port here.
 
 ```javascript 
 DB_CONNECT = mongodb+srv://ybl-rover:Password123@cluster0.blzrd.mongodb.net/roverdb?retryWrites=true&w=majority
