@@ -52,7 +52,8 @@ npm run start
 ### All backend requests:
 ![Insomnia all backend requests](mars-rovers-insomnia.png)
 
-### started off with back end:
+### created mongo database in the cloud using mongod Atlas:
+![Atlas mongodb](cloud-mongodb-atlas.png)
 
 ### created mongo database in the cloud using mongod Atlas:
 * using mongodb Atlas -> AWS -> ireland
