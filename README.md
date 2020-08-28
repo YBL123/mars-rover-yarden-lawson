@@ -97,9 +97,13 @@ module.exports = connectDB
 
 ## config.env (---> mongo atlas cloud database, used url given by atlas db and set it to variable, also storing the port here)
 
-* DB_CONNECT = mongodb+srv://ybl-rover:Password123@cluster0.blzrd.mongodb.net/roverdb?retryWrites=true&w=majority
+* ```javascript 
+
+DB_CONNECT = mongodb+srv://ybl-rover:Password123@cluster0.blzrd.mongodb.net/roverdb?retryWrites=true&w=majority
 
 PORT = 8000
+
+```
 
 
 ## async.js
