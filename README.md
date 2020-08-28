@@ -137,7 +137,6 @@ The unhandled promise rejections cause the server to "hang". Using process.exit 
 ```javascript
 const mongoose = require('mongoose')
 
-//* individual document
 const roverSchema = new mongoose.Schema({
   x: { type: Number, required: true },
   y: { type: Number, required: true },
@@ -148,12 +147,12 @@ const roverSchema = new mongoose.Schema({
 
 module.exports = mongoose.model('Rover', roverSchema)
 ```
+This roverSchema includes the x and y positions that will be returned as numbers and are required. It also includes the position which the rover wil face using enum to check for 'N', 'E', 'S' and 'W'.
 
 ## roverMovement.js (models directory)
 ```javascript
 const mongoose = require('mongoose')
 
-//* individual document
 const roverMovementSchema = new mongoose.Schema({
   movement: { type: String, required: true, enum: ['r', 'R', 'l', 'L', 'm', 'M'] } 
 }, {
@@ -161,10 +160,10 @@ const roverMovementSchema = new mongoose.Schema({
 })
 
 module.exports = mongoose.model('RoverMovement', roverMovementSchema)
-
-//* R + L = 90 degree spin in the same spot
-//* M = movement
 ```
+The roverMovementSchema includes only a movement key which will accept the strings included in the enum. I included both lower and upper case so that the enum will be case Insensitive.
+'R' & 'L' = 90 degree rotation in the same spot. 'M' = movement.
+
 
 ## createRover function in controllers 
 ```javascript
