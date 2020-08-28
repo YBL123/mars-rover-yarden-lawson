@@ -134,7 +134,8 @@ The unhandled promise rejections cause the server to "hang". Using process.exit 
 
 
 ## rover.js (models directory)
-* const mongoose = require('mongoose')
+```javascript
+const mongoose = require('mongoose')
 
 //* individual document
 const roverSchema = new mongoose.Schema({
@@ -146,10 +147,11 @@ const roverSchema = new mongoose.Schema({
 })
 
 module.exports = mongoose.model('Rover', roverSchema)
-
+```
 
 ## roverMovement.js (models directory)
-* const mongoose = require('mongoose')
+```javascript
+const mongoose = require('mongoose')
 
 //* individual document
 const roverMovementSchema = new mongoose.Schema({
@@ -162,7 +164,7 @@ module.exports = mongoose.model('RoverMovement', roverMovementSchema)
 
 //* R + L = 90 degree spin in the same spot
 //* M = movement
-
+```
 
 ## createRover function in controllers 
 ```javascript
