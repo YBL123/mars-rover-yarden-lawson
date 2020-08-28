@@ -1,3 +1,7 @@
+<img align="left" width="50" height="50" src="NASA-logo.png" alt="NASA logo">
+
+# Mars Rovers
+
 # backend / server:
 
 # insert image of all insomnia requests once completed for visual representaion 
