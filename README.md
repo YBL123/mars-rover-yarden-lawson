@@ -108,18 +108,30 @@ module.exports = ErrorResponse
 This class builds error messages and status codes. This is done by building an object which extends the Error class and passes two arguments; message and statusCode.
 
 ## index.js
-* connectDB() //* calling connection here. Comes after dotenv as I am calling process.env within the connectDB function --->>> //* calling connection here. Comes after dotenv as I am calling process.env within the connectDB function
-* const PORT = process.env.PORT || 8000 //* this is a fallback incase the process.env file doesn't work
+```javascript
+dotenv.config({ path: './config/config.env' })
+connectDB() 
+````
+Calling connection here. ConnectDB comes after dotenv as I am calling process.env within the connectDB function.
 
+```javasscript
+const PORT = process.env.PORT || 8000
+````
+This is a fallback incase the process.env file doesn't work.
+
+```javascript
 const server = app.listen(PORT, () => console.log(`Express is listening on port ${PORT}`))
-
-//* handle unhandled promise rejections: (node:44800) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated.
-//* unhandled promise rejections cause the server to "hang" -> process.exit allows us to put an end to it
-//* kills the server
+```
+```javascript
 process.on('unhandledRejection', (err, promise) => {
   console.log(`err: ${err.message}`)
   server.close(() => process.exit(1))
 })
+```
+An example of an unhandled promise rejections: (node:44800) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated.
+
+The unhandled promise rejections cause the server to "hang". Using process.exit allows us to put an end to it/kill the server.
+
 
 ## rover.js (models diirectory)
 * const mongoose = require('mongoose')
