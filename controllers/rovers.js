@@ -145,6 +145,7 @@ const roversMovement = asyncHandler(async(req, res, next) => {
   await Rover.findByIdAndUpdate(rover._id, roverInMotion, { new: true })
 
   res.status(200).json({ roverId: rover._id, newPosition: roverInMotion, movementsArray: movementsArray }) 
+
 })
 
 const roversDelete = asyncHandler(async(req, res, next) => {
