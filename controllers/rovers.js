@@ -59,7 +59,6 @@ const roversShow = asyncHandler(async(req, res, next) => {
 })
 
 const roversMovement = asyncHandler(async(req, res, next) => {
-  console.log(req.body)
   if (!req.body.id || !req.body.movement) {
     return next(new ErrorResponse('missing movement assignement or Rover ID', 400))
   }
@@ -88,38 +87,64 @@ const roversMovement = asyncHandler(async(req, res, next) => {
   const movementOptions = {
     N: { L: 'W', R: 'E', 
       M: function(rover){
-        return rover.y++
+        if (rover.y !== 5) {
+          return rover.y++
+        } else {
+          return 
+        }
       } },
     E: { L: 'N', R: 'S',
       M: function(rover){
-        return rover.x++
+        if (rover.x !== 5) {
+          return rover.x++
+        } else {
+          return
+        }
       } },
     S: { L: 'E', R: 'W', 
       M: function(rover){
-        return rover.y--
+        if (rover.y !== 0) {
+          return rover.y--
+        } else {
+          return
+        }
       }  },
     W: { L: 'S', R: 'N',
       M: function(rover){
-        return rover.x--
+        if (rover.x !== 0) {
+          return rover.x--
+        } else {
+          return
+        }
       } } 
   }
 
+  console.log(roverInMotion)
   //* Mapping through the movement commands within the array. 
   moveRoverCommandsArray.map((movement) => {
     if (movement === 'L' || movement === 'R') { 
+      console.log(movement)
       //* 'L' & 'R' are only 90 degree angle roataions
       //* Updating rover's current position through the movementOptions 
       roverInMotion.position = movementOptions[`${roverInMotion.position}`][`${movement}`]
+      console.log(`new position - ${movementOptions[`${roverInMotion.position}`][`${movement}`]}`)
     } else if (movement === 'M') {
+      console.log(movement)
       //* The rover will be updated with every movement assigned to the rover
       movementOptions[`${roverInMotion.position}`].M(roverInMotion)
+      console.log(`move to ${movementOptions[`${roverInMotion.position}`]}`)
     }
     //* pushing the new movement assignment into movementsArray
     movementsArray.push({ x: roverInMotion.x, y: roverInMotion.y, position: roverInMotion.position })
   })
   //* newPosition: roverInmotion = returning the end position once the movements have been completed
   //* movementsArray: movementsArray = returning an array of all of the movement positions 
-  res.status(200).json({ newPosition: roverInMotion, movementsArray: movementsArray }) 
+  //* roverId: rover._id = returning rover's id
+  //* updating to the new postion of the rover and saving to database
+
+  await Rover.findByIdAndUpdate(rover._id, roverInMotion, { new: true })
+
+  res.status(200).json({ roverId: rover._id, newPosition: roverInMotion, movementsArray: movementsArray }) 
 })
 
 const roversDelete = asyncHandler(async(req, res, next) => {
