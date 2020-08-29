@@ -59,6 +59,7 @@ const roversShow = asyncHandler(async(req, res, next) => {
 })
 
 const roversMovement = asyncHandler(async(req, res, next) => {
+  console.log(req.body)
   if (!req.body.id || !req.body.movement) {
     return next(new ErrorResponse('missing movement assignement or Rover ID', 400))
   }
