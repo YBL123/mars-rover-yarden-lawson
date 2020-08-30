@@ -267,6 +267,42 @@ const roversMovement = asyncHandler(async(req, res, next) => {
 })
 ```
 
+# Frontend:
+
+As the name would suggest Main.js contains the "main" content of the app. 
+
+```javascript
+ const [gridState, setGridState] = useState([])
+  const [roversState, setRoversState] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [clickedRoverId, setClickedRoverId] = useState({})
+
+  useEffect(() => {
+    const gridWidth = 6
+    const gridHeight = 6
+    let grid = []
+
+
+    //* creating a 2 dimentional grid. x and y. 
+    //* creating arrays within an array. The first array represents the y axis and the arrays nested within represent the x axis.
+    for (let i = 0; i < gridHeight; i++) {
+      //* This loop will create the number of rows representing the y axis as arrays. This will loop 6 times as stated in cellsHeight. 
+      grid.push([])
+      for (let ii = 0; ii < gridWidth; ii++) {
+        grid[i].push({
+          //* i represents the first loop which creates the y axis array. ii represents the second loop which creates the x axis arrays
+          x: ii, y: i, active: false
+        })
+      }
+    }
+
+    //* reversing the order of the cells so that the bottom left corner will start at 0,0
+    //* setting the reversed cells to state
+    setGridState(grid.reverse())
+  }, [])
+```
+
+This first useEffect is used to create the 2 dimentional grid with x and y. 
 
 ## Wins
 
