@@ -1,7 +1,7 @@
 {
   "name": "mars-rover-yarden-lawson",
   "version": "1.0.0",
-  "description": "",
+  "description": "Repo for Mars Rovers by Yarden Lawson",
   "main": "index.js",
   "directories": {
     "lib": "lib"
@@ -16,7 +16,10 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon"
+    "start": "node index.js",
+    "seed": "node db/seeds.js",
+    "build": "cd frontend && npm install && npm run build",
+    "develop": "nodemon"
   },
   "repository": {
     "type": "git",
