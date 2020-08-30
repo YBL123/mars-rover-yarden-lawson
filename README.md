@@ -432,6 +432,81 @@ Also updating the clickedRoverId state in order for the cell highlighted (where 
 * Passing individual array of cells to each row as prop through cells + roversState as rovers + clickedRoverId as clickedRover
 * Passing handleRoverMovement function as a reference in handleMove prop to the RoverNewMovement
 
+```javascript
+const GridRow = (props) => {
+  const { cells, rovers, handleClick, clickedRover } = props
+
+  let mainContent = (
+    <div className="grid-cell-row">
+      {
+        cells.map((cell, i) => {
+          let roverObj //* will be undefined unless the if statement below is true
+          rovers.map((rover) => {
+            if (rover.currentPosition.x === cell.x && rover.currentPosition.y === cell.y) {
+              roverObj = {
+                roverId: rover.roverId,
+                currentPosition: rover.currentPosition
+              }
+            }
+          })
+          return <GridCell key={i} cell={cell} rover={roverObj} handleClick={handleClick} isClicked={parseInt(clickedRover.x) === cell.x && parseInt(clickedRover.y) === cell.y}
+          />
+        })
+      }
+    </div>
+  )
+
+  return (
+    <div>
+      {mainContent}
+    </div>
+  )
+}
+```
+* In this component I am using props to map over cells array to get the cell object. I am then mapping throw the rovers array to get the rover object.
+* Then I am comparing the x and y keys in the rover and cell object to see if they match.  //* A rover will then be created in the GridCell component each time  rovers.map finds a match 
+* If they do then I am creating the new roverObj and passing it as props to GridCell component
+* Inside GridRow component -> by returning mainContent I am also returning the GridCell compoenent. 
+* Returning GridCell 6 times as a result of cells.map
+
+```javascript
+onst GridCell = (props) => {
+  const { cell, rover, handleClick, isClicked } = props
+
+  //* assigning the correlating image position depending on the rover's movement assignement
+  let roverImgPos
+  if (rover !== undefined) {
+    if (rover.currentPosition.position === 'E') {
+      roverImgPos = roverE
+    } else if (rover.currentPosition.position === 'N') {
+      roverImgPos = roverN
+    } else if (rover.currentPosition.position === 'S') {
+      roverImgPos = roverS
+    } else if (rover.currentPosition.position === 'W') {
+      roverImgPos = roverW
+    }
+  }
+
+  return (
+    <div className={`grid-cell-item ${isClicked ? 'active' : ''}`}>
+      <div className="cell-wrapper">
+        <div className="cell-id">
+          {`${cell.x} , ${cell.y}`}
+        </div>
+        <div className="box-root">
+          {rover !== undefined ?
+            <div className="rover-wrapper">
+              <img className="rover-png" src={roverImgPos} rover_id={rover.roverId} cell_x={cell.x} cell_y={cell.y} onClick={(e) => handleClick(e)} />
+            </div> : null}
+        </div>
+      </div>
+    </div>
+  )
+```
+
+* In continuation to GridRow. The rover = roverObj
+* Using a ternary in the return, if the rover is not undefined it is printed
+* The return in the onClick will send e.target to the handleClick function that was passed down through props from Main
 
 ## Wins
 
