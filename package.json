@@ -22,9 +22,10 @@
   "scripts": {
     "test": "mocha || true",
     "start": "node index.js",
-    "build": "",
+    "build": "npm run build",
     "server": "nodemon",
-    "dev": "concurrently \"npm run server\" \"npm start --prefix frontend\""
+    "dev": "concurrently \"npm run server\" \"npm start --prefix frontend\"",
+    "postinstall": "ng build"
   },
   "repository": {
     "type": "git",
