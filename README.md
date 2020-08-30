@@ -509,8 +509,9 @@ onst GridCell = (props) => {
 * The return in the onClick will send e.target to the handleClick function that was passed down through props from Main
 
 ## Wins
-
-blablabla
+* Using MongoDB Atlas for the firs time
+* Responsive design
+* Working with React Hooks
 
 ## Challenges
 
@@ -521,8 +522,8 @@ blablabla
 * Make grid's size adjustable
 * Fine-tune error messaging
 * Rover movement animation
-* Fine-tune styling
+* Fine-tune styling 
 
 ## Key Learnings
 
-blablabla
+Using MondoDB Atlas for the first time to store my database in the cloud was great. I had also explored different error handling methods with asyncHandler, learnt about window.location.reload(), further pratcice with React Hooks and worked through some challenging and complicated logic. 
