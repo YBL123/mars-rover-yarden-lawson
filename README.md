@@ -398,6 +398,14 @@ const handleRoverMovement = (movementData) => {
   }
   ```
 
+Passing movementData as a param in this handleRoverMovement function. 
+I the spread roversState to scoop out the date and created an immutable copy array assigned to the roversCopyArray variable.
+I then mapped over roversCopyArray to check if the roverId matches the movementData.roverId. If it does not then the function will return the same rover in it's current position. If it is true then the rover will be updated in it's new position.
+If the if statement is true then a new rover objec for the roversCopArray containing the rover's new positon is returned. 
+
+The rover's state i updated through setting roversCopyArray to state
+
+Also updating the clickedRoverId state in order for the cell highlighted (where the rover has been clicked) in the GridRow component to update.
 
 
 ## Wins
