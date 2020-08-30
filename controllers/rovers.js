@@ -73,17 +73,6 @@ const roversMovement = asyncHandler(async(req, res, next) => {
   //* turns the movement string to uppercase then splits the movement string that is inputed into an array
   const moveRoverCommandsArray = req.body.movement.toUpperCase().split('') 
 
-  let isFalse = false
-  moveRoverCommandsArray.map(movement => {
-    if (movement !== 'M' || movement !== 'L' || movement !== 'R') {
-      isFalse = true
-    }
-  })
-  
-  if (isFalse) {
-    return next(new ErrorResponse('computer says no', 400))
-  }
-
   const movementsArray = []
 
   //* this will be a copy of the rover model at this stage. This will be updated with every movement assigned to the rover.
