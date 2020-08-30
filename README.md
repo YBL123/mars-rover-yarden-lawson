@@ -519,6 +519,7 @@ blablabla
 ## Future Improvements
 
 * Make grid's size adjustable
+* fine-tune error messaging
 * Fine-tune styling
 * Add Error messages on forms to let user's know what the issue is
 
