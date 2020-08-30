@@ -407,6 +407,31 @@ The rover's state i updated through setting roversCopyArray to state
 
 Also updating the clickedRoverId state in order for the cell highlighted (where the rover has been clicked) in the GridRow component to update.
 
+```javascript
+
+  return (
+...
+        <RoverNew />
+        {!isLoading ?
+          <div className='grid-wrapper'>
+            {gridState.map((cells, i) => {
+              return <GridRow key={i} cells={cells} rovers={roversState} handleClick={handleClick} clickedRover={clickedRoverId} />
+            })}
+          </div>
+          : null}
+        <RoverNewMovement roverId={clickedRoverId.roverId} handleMove={handleRoverMovement} />
+      </div>
+    </div>
+
+  )
+```
+
+* Passing roversState (array) as prop to GridRow
+* Now it's certain that all of the rovers have been fetched from the database and are stored in the state, together with the grid. Now I can start printing the grid and the rovers etc
+* Line 123: here I am mapping gridState and calling the GridRow component. 
+* Passing individual array of cells to each row as prop through cells + roversState as rovers + clickedRoverId as clickedRover
+* Passing handleRoverMovement function as a reference in handleMove prop to the RoverNewMovement
+
 
 ## Wins
 
