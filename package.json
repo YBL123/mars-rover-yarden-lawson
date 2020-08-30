@@ -22,7 +22,7 @@
   "scripts": {
     "test": "mocha || true",
     "start": "node index.js",
-    "build": "",
+    "build": "cd frontend && npm run build",
     "server": "nodemon",
     "dev": "concurrently \"npm run server\" \"npm start --prefix frontend\""
   },
