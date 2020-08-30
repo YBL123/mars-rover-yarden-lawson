@@ -158,6 +158,11 @@ const roversDelete = asyncHandler(async(req, res, next) => {
   res.sendStatus(204)
 })
 
+const sayHello = async () => {
+  const string = 'hello'
+  return string
+}
+
 // * export your controllers for use in the router
 
 module.exports = {
@@ -165,5 +170,6 @@ module.exports = {
   create: roversCreate,
   show: roversShow,
   movement: roversMovement,
-  delete: roversDelete
+  delete: roversDelete,
+  sayHello: sayHello
 }

@@ -40,9 +40,9 @@ npm i
 ```
 
 * To run the app in your localhost:
-* In both front and back:
+* In the root folder run the command, to run both back and frontend simultaneously:
 ```terminal
-npm run start
+npm run dev
 ```
 
 # Backend:

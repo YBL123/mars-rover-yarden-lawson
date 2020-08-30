@@ -28,3 +28,13 @@ process.on('unhandledRejection', (err, promise) => {
   console.log(`err: ${err.message}`)
   server.close(() => process.exit(1))
 })
+
+
+// module.exports = {
+//   sayHello: function() {
+//     return 'hello'
+//   },
+//   addNumbers: function(value1, value2){
+//     return value1 + value2
+//   }
+// }
