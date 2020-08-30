@@ -519,9 +519,9 @@ blablabla
 ## Future Improvements
 
 * Make grid's size adjustable
-* fine-tune error messaging
+* Fine-tune error messaging
+* Rover movement animation
 * Fine-tune styling
-* Add Error messages on forms to let user's know what the issue is
 
 ## Key Learnings
 
