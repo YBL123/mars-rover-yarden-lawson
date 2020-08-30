@@ -286,12 +286,12 @@ As the name would suggest Main.js contains the "main" content of the app.
     //* creating a 2 dimentional grid. x and y. 
     //* creating arrays within an array. The first array represents the y axis and the arrays nested within represent the x axis.
     for (let i = 0; i < gridHeight; i++) {
-      //* This loop will create the number of rows representing the y axis as arrays. This will loop 6 times as stated in cellsHeight. 
+      //* This loop will create the number of rows representing the y axis as arrays. This will loop 6 times as stated in gridsHeight. 
       grid.push([])
       for (let ii = 0; ii < gridWidth; ii++) {
         grid[i].push({
           //* i represents the first loop which creates the y axis array. ii represents the second loop which creates the x axis arrays
-          x: ii, y: i, active: false
+          x: ii, y: i, active: false //! ref: highlight
         })
       }
     }
@@ -302,7 +302,15 @@ As the name would suggest Main.js contains the "main" content of the app.
   }, [])
 ```
 
-This first useEffect is used to create the 2 dimentional grid with x and y. 
+This first useEffect is used to create the 2 dimentional grid with x and y. The first array represents the y axis and the arrays nested within represent the x axis.
+
+The loop creates the number of rows representing the y axis as array. This loop will run 6 times as stated in gridHeight.
+
+i represents the first loop which creates the y axis array. ii represents the second loop which creates the x axis arrays.
+
+active: false will be later referred to when creating the highlight on the grid space where the rover a rover is clicked.
+
+The grid is set to state and reversed so that the bottom left will start with x= 0 and y =0.
 
 ```javascript
 useEffect(() => {
@@ -389,6 +397,8 @@ const handleRoverMovement = (movementData) => {
     })
   }
   ```
+
+
 
 ## Wins
 
