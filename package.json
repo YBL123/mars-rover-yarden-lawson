@@ -24,8 +24,7 @@
     "start": "node index.js",
     "build": "npm run build",
     "server": "nodemon",
-    "dev": "concurrently \"npm run server\" \"npm start --prefix frontend\"",
-    "postinstall": "ng build"
+    "dev": "concurrently \"npm run server\" \"npm start --prefix frontend\""
   },
   "repository": {
     "type": "git",
