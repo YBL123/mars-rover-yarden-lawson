@@ -34,8 +34,6 @@ The app is deployed on ...
 ## Getting Started
 To download the source code click the clone button. Run the following commands in the terminal:
 
-To download the source code click the clone button. Run the following commands in the terminal:
-
 * To install all packages listed in the package.json:
 ```terminal
 npm i
@@ -161,7 +159,7 @@ const roverMovementSchema = new mongoose.Schema({
 
 module.exports = mongoose.model('RoverMovement', roverMovementSchema)
 ```
-The roverMovementSchema includes only a movement key which will accept the strings included in the enum. I included both lower and upper case so that the enum will be case Insensitive.
+The roverMovementSchema includes only a movement key which will accept the strings included in the enum. I included both lower and upper case so that the enum will be case insensitive.
 'R' & 'L' = 90 degree rotation in the same spot. 'M' = movement.
 
 
@@ -308,9 +306,9 @@ The loop creates the number of rows representing the y axis as array. This loop 
 
 i represents the first loop which creates the y axis array. ii represents the second loop which creates the x axis arrays.
 
-active: false will be later referred to when creating the highlight on the grid space where the rover a rover is clicked.
+active: false will be later referred to when creating the highlight on the grid space where a rover is clicked.
 
-The grid is set to state and reversed so that the bottom left will start with x= 0 and y =0.
+The grid is set to state and reversed so that the bottom left will start with x = 0 and y = 0.
 
 ```javascript
 useEffect(() => {
@@ -350,7 +348,7 @@ I set the variable res to getAllRovers which sends a request to the backend and 
 I then mapped through the array of rovers using res.data.map and pushed the roverId, current position and roverMovement as an object into the rovers array.
 I Also included an empty roverMovements array which will be used later. The rovers array is then set to state.
 
-The if statement is asking if the gridState's length is greater than one is true then call the fetchRovers function. I added gridState into the dependency array so that every time gridState changes the function will run again.
+The if statement is asking if the gridState's length is greater than one is true. If it is then call the fetchRovers function. I added gridState into the useEffect's dependency array so that every time gridState changes the function will run again.
 
 
 ```javascript
@@ -399,11 +397,11 @@ const handleRoverMovement = (movementData) => {
   ```
 
 Passing movementData as a param in this handleRoverMovement function. 
-I the spread roversState to scoop out the date and created an immutable copy array assigned to the roversCopyArray variable.
+I spread roversState to scoop out the date and created an immutable copy array assigned to the roversCopyArray variable.
 I then mapped over roversCopyArray to check if the roverId matches the movementData.roverId. If it does not then the function will return the same rover in it's current position. If it is true then the rover will be updated in it's new position.
-If the if statement is true then a new rover objec for the roversCopArray containing the rover's new positon is returned. 
+If the if statement is true then a new rover object for the roversCopArray containing the rover's new positon is returned. 
 
-The rover's state i updated through setting roversCopyArray to state
+The rover's state is updated through setting roversCopyArray to state
 
 Also updating the clickedRoverId state in order for the cell highlighted (where the rover has been clicked) in the GridRow component to update.
 
@@ -427,10 +425,10 @@ Also updating the clickedRoverId state in order for the cell highlighted (where 
 ```
 
 * Passing roversState (array) as prop to GridRow
-* Now it's certain that all of the rovers have been fetched from the database and are stored in the state, together with the grid. Now I can start printing the grid and the rovers etc
-* Line 123: here I am mapping gridState and calling the GridRow component. 
-* Passing individual array of cells to each row as prop through cells + roversState as rovers + clickedRoverId as clickedRover
-* Passing handleRoverMovement function as a reference in handleMove prop to the RoverNewMovement
+* Now it's certain that all of the rovers have been fetched from the database and are stored in the state, together with the grid. Now the grid and the rovers can be printed
+* Line 123: here I mapped gridState and I am calling the GridRow component. 
+* Passed individual array of cells to each row as prop through cells + roversState as rovers + clickedRoverId as clickedRover
+* Passed handleRoverMovement function as a reference in handleMove prop to the RoverNewMovement
 
 ```javascript
 const GridRow = (props) => {
@@ -463,11 +461,12 @@ const GridRow = (props) => {
   )
 }
 ```
-* In this component I am using props to map over cells array to get the cell object. I am then mapping throw the rovers array to get the rover object.
-* Then I am comparing the x and y keys in the rover and cell object to see if they match.  //* A rover will then be created in the GridCell component each time  rovers.map finds a match 
-* If they do then I am creating the new roverObj and passing it as props to GridCell component
-* Inside GridRow component -> by returning mainContent I am also returning the GridCell compoenent. 
-* Returning GridCell 6 times as a result of cells.map
+* In this component I am used props to map over cells array to get the cell object. I then mapped throw the rovers array to get the rover object.
+* Then I compared the x and y keys in the rover and cell object to see if they match.  
+* A rover will then be created in the GridCell component each time rovers.map finds a match 
+* If they do then at new roverObj is created and passed as props to the GridCell component
+* Inside GridRow component -> by returning mainContent I am also returned the GridCell compoenent. 
+* Returbed GridCell 6 times as a result of cells.map
 
 ```javascript
 onst GridCell = (props) => {
@@ -514,8 +513,9 @@ onst GridCell = (props) => {
 * Working with React Hooks
 
 ## Challenges
-
-blablabla
+* Having all rovers appear on grid
+* Rover movement logic
+* Logic for grid
 
 ## Future Improvements
 
