@@ -304,6 +304,63 @@ As the name would suggest Main.js contains the "main" content of the app.
 
 This first useEffect is used to create the 2 dimentional grid with x and y. 
 
+```javascript
+useEffect(() => {
+    const fetchRovers = async () => {
+      try {
+        const res = await getAllRovers()
+        let rovers = []
+        //* mapping through array of rovers, and pushing the roverId, currentPosition and the empty roverMovements into the rovers array
+        res.data.map(rover => {
+          rovers.push({
+            roverId: rover._id,
+            currentPosition: {
+              x: rover.x,
+              y: rover.y,
+              position: rover.position
+            },
+            roverMovements: []
+          })
+          setRoversState(rovers) //* setting the rovers array to state
+        })
+
+        setIsLoading(false) //! Now that the grid is ready and the fetch of the rovers is completed and are set to state with setRoversState
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    //* if gridstate's length is larger than 1 then call fetchRovers function
+    if (gridState.length > 1) {
+      fetchRovers()
+    }
+  }, [gridState]) //* now every time gridState changes the function will run again
+```
+This second useEffect is used to fetch all the rovers.
+
+I set the variable res to getAllRovers which sends a request to the backend and returns an array of all rovers. 
+
+I then mapped through the array of rovers using res.data.map and pushed the roverId, current position and roverMovement as an object into the rovers array.
+I Also included an empty roverMovements array which will be used later. The rovers array is then set to state.
+
+The if statement is asking if the gridState's length is greater than one is true then call the fetchRovers function. I added gridState into the dependency array so that every time gridState changes the function will run again.
+
+
+```javascript
+  //* aquiring the rover id on click
+  const handleClick = (e) => {
+    const clickedRover = {
+      roverId: e.target.getAttribute('rover_id'),
+      x: e.target.getAttribute('cell_x'),
+      y: e.target.getAttribute('cell_y'),
+    }
+    setClickedRoverId(clickedRover)
+  }
+```
+
+This handleClick function is listening to the event.target. The event.target are then sored in the variable clickedRover and set to state with setClickedRoverId
+
+
+
 ## Wins
 
 blablabla
