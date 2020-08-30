@@ -359,7 +359,36 @@ The if statement is asking if the gridState's length is greater than one is true
 
 This handleClick function is listening to the event.target. The event.target are then sored in the variable clickedRover and set to state with setClickedRoverId
 
-
+```javascript
+const handleRoverMovement = (movementData) => {
+    let roversCopyArray = [...roversState] //* spreading to scoop out the data in roversState and making an immutable copy array
+    //* mapping over roversCopyArray to check if the roverId matches the movementData.roverId -> if false return same rover, if true update the rover in it's new position
+    roversCopyArray = roversCopyArray.map(rover => {
+      if (rover.roverId === movementData.roverId) {
+        //* returning a new rover object for the roversCopyArray containing the rover's new position
+        return {
+          roverId: movementData.roverId,
+          currentPosition: {
+            x: movementData.newPosition.x,
+            y: movementData.newPosition.y,
+            position: movementData.newPosition.position
+          },
+          roverMovements: movementData.movementsArray
+        }
+      } else {
+        //* return existing rover in it's current position
+        return rover
+      }
+    })
+    setRoversState(roversCopyArray) //* updating the rover's state through setting the roversCopyArray to state
+    //! REF: updating the clickedRoverId state in order for the cell highlighted (where the rover has been clicked) in the GridRow compoenent to update
+    setClickedRoverId({ 
+      roverId: movementData.roverId,
+      x: movementData.newPosition.x,
+      y: movementData.newPosition.y
+    })
+  }
+  ```
 
 ## Wins
 
