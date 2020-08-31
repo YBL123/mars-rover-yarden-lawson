@@ -525,6 +525,7 @@ onst GridCell = (props) => {
 * Fine-tune error messaging
 * Rover movement animation
 * Fine-tune styling 
+* Implementing unit tests
 
 ## Key Learnings
 
