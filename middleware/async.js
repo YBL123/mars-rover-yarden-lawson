@@ -8,10 +8,12 @@ module.exports = asyncHandler
 //* next meaning passing it on to the errorHandler which will catch and handle the error
 
 //!equivalent to ===>>
-// const test = (func, req, res, next) => {
-//   try {
-//     return func(req, res, next)
-//   } catch (err) {
-//     next()
+// const test = (func) => {
+//   return (req, res, next) => {
+//     try {
+//       return func(req, res, next)
+//     } catch (err) {
+//       next()
+//     }
 //   }
 // }
