@@ -70,7 +70,8 @@ const roversMovement = asyncHandler(async(req, res, next) => {
   }
   const roverId = req.body.id 
   
-  // * find the rover to be moved
+  // * find the rover to be moved by id
+  //* assigning the rover document found by id to the const rover ---> this document is immutable as it's a model
   const rover = await Rover.findById(roverId)
   if (!rover){
     return next(new ErrorResponse(notFound, 404))
@@ -81,7 +82,8 @@ const roversMovement = asyncHandler(async(req, res, next) => {
 
   const movementsArray = []
 
-  //* this will be a copy of the rover model at this stage. This will be updated with every movement assigned to the rover.
+  //* This will be a copy of the rover model at this stage. This will be updated with every movement assigned to the rover.
+  //* This copy will be mutable
   const roverInMotion = { 
     x: rover.x, 
     y: rover.y, 
@@ -125,20 +127,21 @@ const roversMovement = asyncHandler(async(req, res, next) => {
       } } 
   }
 
-  console.log(roverInMotion)
   //* Mapping through the movement commands within the array. 
   moveRoverCommandsArray.map((movement) => {
     if (movement === 'L' || movement === 'R') { 
-      console.log(movement)
       //* 'L' & 'R' are only 90 degree angle roataions
       //* Updating rover's current position through the movementOptions 
+      //* Each [] attached to an object represents the set of keys. If there are more keys inside the key it will represent those.
+      //* Finding current rover position through roverInMotion.position -> this is the first set of keys for movemntOptions. The second [] are the keys nested within the first keys of movementOptions -> according to movement L, R or M the new position is received
+      //* even though roverInMotion is a const it still remains an object and the keys remain the same -> therefore the value can still be changed
       roverInMotion.position = movementOptions[`${roverInMotion.position}`][`${movement}`]
-      console.log(`new position - ${movementOptions[`${roverInMotion.position}`][`${movement}`]}`)
+
     } else if (movement === 'M') {
-      console.log(movement)
       //* The rover will be updated with every movement assigned to the rover
+      //* calling the M function from movementOptions and passsing the roverInMotion object as a param
+      //* The M function then mutates the roverInMotion object by altering the x or y with the given movement input
       movementOptions[`${roverInMotion.position}`].M(roverInMotion)
-      console.log(`move to ${movementOptions[`${roverInMotion.position}`]}`)
     }
     //* pushing the new movement assignment into movementsArray
     movementsArray.push({ x: roverInMotion.x, y: roverInMotion.y, position: roverInMotion.position })
