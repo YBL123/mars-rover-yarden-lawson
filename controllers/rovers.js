@@ -143,20 +143,24 @@ const roversMovement = asyncHandler(async(req, res, next) => {
       //* The M function then mutates the roverInMotion object by altering the x or y with the given movement input
       movementOptions[`${roverInMotion.position}`].M(roverInMotion)
     }
-    //* pushing the new movement assignment into movementsArray
+    //* pushing the new movement assignment into movementsArray -> this saves the history of the movement within the array of objects
     movementsArray.push({ x: roverInMotion.x, y: roverInMotion.y, position: roverInMotion.position })
   })
-  //* newPosition: roverInmotion = returning the end position once the movements have been completed
+  //* newPosition: roverInMotion = returning the end position once the movements have been completed
   //* movementsArray: movementsArray = returning an array of all of the movement positions 
   //* roverId: rover._id = returning rover's id
   //* updating to the new postion of the rover and saving to database
+  //* new: true --->  mongoose indicator to return the updated document --> in this case it is irrelevant because I am not saving the updated document in any variable. However I may like to in the future
 
   await Rover.findByIdAndUpdate(rover._id, roverInMotion, { new: true })
 
+  //* Sending back a json object consisting of the roverId, newPosition and movementsArray
   res.status(200).json({ roverId: rover._id, newPosition: roverInMotion, movementsArray: movementsArray }) 
 
 })
 
+//* finds rover by id by params as the id is already contained within the url used by the delete request.
+//* if roverToDelete = true await roverToDelete.remove()
 const roversDelete = asyncHandler(async(req, res, next) => {
   const roverId = req.params.id
   const roverToDelete = await Rover.findById(roverId)
@@ -167,10 +171,10 @@ const roversDelete = asyncHandler(async(req, res, next) => {
   res.sendStatus(204)
 })
 
-const sayHello = async () => {
-  const string = 'hello'
-  return string
-}
+// const sayHello = async () => {
+//   const string = 'hello'
+//   return string
+// }
 
 // * export your controllers for use in the router
 
@@ -179,6 +183,6 @@ module.exports = {
   create: roversCreate,
   show: roversShow,
   movement: roversMovement,
-  delete: roversDelete,
-  sayHello: sayHello
+  delete: roversDelete
+  // sayHello: sayHello
 }

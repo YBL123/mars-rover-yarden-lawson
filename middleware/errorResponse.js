@@ -7,5 +7,7 @@ class ErrorResponse extends Error {
 
 module.exports = ErrorResponse
 
-//* builds error messages and status codes
-//* built an object which extends Error that passes 2 arguments -> message and statusCode
+//* ErrorResponse extends the class Error
+
+//* This class builds a constructor which passes two params -> message and statusCode
+
