@@ -6,7 +6,10 @@ const asyncHandler = require('../middleware/async')
 // * Create the controllers for your resouce here (index, create), (show, update delete optional)
 
 const roversIndex = asyncHandler(async(req, res, next) => {
-  const rovers = await Rover.find()
+  //* returns every document existing inside collection of rovers (array)
+  //* In larger databases/future it would be better to add pagination and limit the number of documents returned. 
+  const rovers = await Rover.find() 
+  
   if (!rovers) {
     return next(new ErrorResponse(notFound, 404))
   }
@@ -26,7 +29,8 @@ const roversCreate = asyncHandler(async(req, res, next) =>  {
   } 
 
   const newRover = {
-    //* turning x and y into ints and turning position to upperCase
+    //* Turning x and y into ints and turning position to upperCase
+    //* By assigning these keys to the newRover const I am making sure that these are the only 3 params that will be accepted when creating a new Rover, regardless of whatever the req.body may contain 
     x: parseInt(req.body.x),
     y: parseInt(req.body.y),
     position: req.body.position.toUpperCase() 
