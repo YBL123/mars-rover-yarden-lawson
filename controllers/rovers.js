@@ -36,7 +36,6 @@ const roversCreate = asyncHandler(async(req, res, next) =>  {
     position: req.body.position.toUpperCase() 
   }
 
-  const createdRover = await Rover.create(newRover) 
 
   //* INVALID IF COORDINATES ARE OUTSIDE OF THE 5*5 GRID 
   if (req.body.x > 5 || req.body.x < 0) {
@@ -45,6 +44,9 @@ const roversCreate = asyncHandler(async(req, res, next) =>  {
   if (req.body.y > 5 || req.body.y < 0) {
     return next(new ErrorResponse('Outside of grid parameters', 400))
   }
+
+  //* CREATE ROVER
+  const createdRover = await Rover.create(newRover) 
 
   res.status(201).json(createdRover)
   
