@@ -54,16 +54,6 @@ I began by building the backend first. I set up the routes, controllers, middlew
 ### All backend requests:
 ![Insomnia all backend requests](mars-rovers-insomnia.png)
 
-## created directories: 
-* config -> config.env & routes.js
-* controllers -> rovers.js
-* db -> connect.js
-* lib -> errorHandler.js & errorMessages.js
-* middleware -> async.js & errorResponse.js
-* models -> rover.js & rovermovement.js
-* index.js
-* frontend -> create reactapp
-
 ## config.env
 
 ### Created MongoDB Atlas Database 
